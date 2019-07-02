@@ -1,0 +1,40 @@
+trigger CountConsOnAcc on Contact (after insert,after delete,after undelete) {
+
+        List<Account> accountList = new List<Account>();
+    	List<Account> accListToUpdate = new List<Account>();
+        Set<Id> accIds = new Set<Id>();
+    if(trigger.isInsert|| trigger.isUndelete)
+    {
+        
+        for(Contact con : trigger.new)
+        {
+            if(con.AccountId!=NULL)
+            accIds.add(con.AccountId);
+        }
+        
+    }
+   if(trigger.isDelete)
+    {       
+   for(Contact con : trigger.old)
+        {
+            if(con.AccountId!=NULL)
+            accIds.add(con.AccountId);
+        }
+        
+    }
+    
+    if(AccIds.size()!=0)
+    {//Countcustomfield
+        accountList = [Select id ,Name,NumberOfContact__c (Select id, Name From Contacts) from Account Where id in :AccIds];
+        for(Account acc : AccountList)
+        {
+            List<Contact> contactList = acc.Contacts;
+            acc.NumberOfContact__c = contactList.size();
+            accListToUpdate.add(Acc);
+        }
+             
+    }
+    
+    database.update(accListToUpdate,true);
+    
+}
