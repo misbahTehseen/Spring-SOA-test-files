@@ -1,0 +1,14 @@
+Http h = new Http();
+HttpRequest req = new HttpRequest();
+req.setEndpoint('https://postman-echo.com/get?foo1=bar1&foo2=bar2');
+req.setHeader('cache-control', 'no-cache');
+req.setHeader('Connection', 'keep-alive');
+req.setHeader('accept-encoding', 'gzip, deflate');
+req.setHeader('Host', 'postman-echo.com');
+req.setHeader('Postman-Token', 'c152bc7a-48c0-441f-8983-5a8c8c85834a,bbe2bbe3-3091-42ae-9911-689801b5b13d');
+req.setHeader('Cache-Control', 'no-cache');
+req.setHeader('Accept', '*/*');
+req.setHeader('User-Agent', 'PostmanRuntime/7.15.0');
+req.setMethod('GET');              
+HttpResponse response= h.send(req); 
+system.debug(response.getstatuscode());
