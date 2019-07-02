@@ -1,0 +1,7 @@
+public class DisplayAccountsClass {
+@AuraEnabled
+    public static List<Account>  DisplayAccounts()
+    {
+        return [Select Name,createdDate from Account order by createdDate DESC limit 10];
+    }
+}
